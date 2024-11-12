@@ -1,5 +1,8 @@
 :root {
+  --font-size: 1rem; /* Base font size */
+
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: var(--font-size);
   line-height: 1.5;
   font-weight: 400;
 
@@ -11,6 +14,14 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  box-sizing: border-box; /* Reset box-sizing to include padding and border in width/height */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit; /* Inherit box-sizing from root element */
 }
 
 a {
@@ -18,6 +29,7 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
@@ -31,7 +43,7 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 3.2rem; /* Use rem units for relative sizing */
   line-height: 1.1;
 }
 
@@ -46,9 +58,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -59,9 +73,11 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
   }
