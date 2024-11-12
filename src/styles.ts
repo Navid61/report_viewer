@@ -20,6 +20,7 @@ export const Container = styled.div`
       "main"
       "footer";
   }
+      color:black;
 `;
 
 
