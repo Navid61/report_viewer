@@ -10,6 +10,8 @@ const SectionWrapper = styled.div`
   border-radius: 8px;
   background-color: #fafafa;
   color:black;
+  
+ 
 `;
 
 function UploadField({ label }: { label: string }) {
