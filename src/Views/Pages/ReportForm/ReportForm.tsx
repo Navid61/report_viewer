@@ -1,4 +1,4 @@
-import React from 'react';
+
 import styled from 'styled-components';
 import Editor from '../../../components/Editor/Editor'; // Adjust the path as needed to locate Editor.tsx
 

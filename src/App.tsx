@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "./styles";
+import { MainContainer } from "./Layout/layoutStyles";
 
 
 const Header = React.lazy(()=>import("./Layout/Header/Header"))
@@ -12,12 +12,12 @@ const MainSection = React.lazy(()=>import("./Layout/MainSection/MainSection"))
 function App() {
   return (
     <>
-    <Container>
+    <MainContainer>
  <Header/>
     <Sidebar/>
     <MainSection/>
     <Footer/>
-    </Container>
+    </MainContainer>
    
    
     
