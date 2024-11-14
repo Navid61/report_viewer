@@ -11,6 +11,7 @@ export const MainContainer = styled.div`
     "footer footer";
   min-height: 100vh;
   transition: grid-template-columns 0.3s ease;
+  overflow-y:auto;
   @media (max-width: 768px) {
     grid-template-columns: 100%;
     grid-template-areas: 
@@ -18,6 +19,8 @@ export const MainContainer = styled.div`
       "main"
       "footer";
   }
+      color:black;
+
      
 `;
 
@@ -37,13 +40,14 @@ grid-template-columns:auto;
 
 export const SidebarCard = styled.aside`
   grid-area: sidebar;
-  background-color: #555;
+
   color: white;
   padding: 1rem;
   width:17vw;
   @media (max-width: 768px) {
     display: none; /* Hide sidebar on smaller screens */
   }
+   
 `;
 
 export const MainContentCard = styled.main`
