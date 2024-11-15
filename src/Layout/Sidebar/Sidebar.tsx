@@ -1,7 +1,6 @@
-// Sidebar.tsx
-
 import React from 'react';
-import { SidebarCard } from '../layoutStyles';
+import styled from 'styled-components';
+import { SidebarCard, StyledSection } from '../layoutStyles';
 
 interface SidebarProps {
   activeSection: string;
@@ -13,22 +12,16 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection }) => {
     'Interior General',
     'Living Room and Common Area',
     'Kitchen Bathroom',
+    
+
   ];
 
   return (
     <SidebarCard>
       {sections.map((section) => (
-        <div
-          key={section}
-          style={{
-           
-            padding: '1rem',
-            fontWeight: activeSection === section ? 'bold' : 'normal',
-            color: activeSection === section ? 'blue' : 'black',
-          }}
-        >
+        <StyledSection key={section} active={activeSection === section}>
           {section}
-        </div>
+        </StyledSection>
       ))}
     </SidebarCard>
   );
