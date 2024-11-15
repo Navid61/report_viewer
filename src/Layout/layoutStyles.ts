@@ -58,7 +58,7 @@ export const StyledSection = styled.div<StyledSectionProps>`
   color: ${({ active }) => (active ? "blue" : "black")};
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  border: 1px solid red;
+ 
   
 `;
 
