@@ -8,7 +8,7 @@ const SectionWrapper = styled.div<{ isActive: boolean }>`
   margin: 20px 0;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
-  background-color: ${({ isActive }) => (isActive ? "#e0f7fa" : "#fafafa")};
+  background-color: ${({ isActive }) => (isActive ? "#FBF8DD" : "#fafafa")};
   transition: background-color 0.3s ease;
 `;
 
@@ -231,7 +231,7 @@ function ReportForm({ onSectionChange }: { onSectionChange: (id: number, section
           }
         });
       },
-      { threshold: 0.3 } // Adjusted threshold for better detection of large sections
+      { threshold: 0.4 } // Adjusted threshold for better detection of large sections
     );
 
     // Observe all sections

@@ -36,6 +36,7 @@ export const HeaderCard = styled.header`
 `;
 
 export const SidebarCard = styled.aside`
+background-color:#DFF2EB;
   grid-area: sidebar;
   color: white;
   padding: 1rem;
