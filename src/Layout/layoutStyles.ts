@@ -33,7 +33,6 @@ export const HeaderCard = styled.header`
   // position:sticky;
   // top:0;
   // z-index:500;
- 
 `;
 
 export const SidebarCard = styled.aside`
@@ -43,23 +42,20 @@ export const SidebarCard = styled.aside`
   width: 17vw;
   max-height: 100vh;
   top: 10px; /* Ensure it sticks at the top */
-  position:sticky;
+  position: sticky;
   @media (max-width: 768px) {
     display: none; /* Hide sidebar on smaller screens */
   }
 `;
 
-interface StyledSectionProps {
-  active: boolean;
-}
-export const StyledSection = styled.div<StyledSectionProps>`
+
+export const StyledSection = styled.div<{ $active: boolean }>`
   padding: 1rem;
-  font-weight: ${({ active }) => (active ? "bold" : "normal")};
-  color: ${({ active }) => (active ? "blue" : "black")};
+  font-weight: ${({ $active }) => ($active ? "bold" : "normal")};
+  color: ${({ $active }) => ($active ? "blue" : "black")};
   cursor: pointer;
   transition: all 0.2s ease-in-out;
- 
-  
+  /* You can add any styling based on $id here if needed */
 `;
 
 /**      */
