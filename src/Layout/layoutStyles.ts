@@ -56,6 +56,7 @@ export const StyledSection = styled.div<{ $active: boolean }>`
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   /* You can add any styling based on $id here if needed */
+    
 `;
 
 /**      */
