@@ -30,9 +30,7 @@ export const HeaderCard = styled.header`
   color: white;
   padding: 1rem;
   text-align: center;
-  // position:sticky;
-  // top:0;
-  // z-index:500;
+  
 `;
 
 export const SidebarCard = styled.aside`
@@ -67,7 +65,8 @@ export const MainContentCard = styled.main`
   padding: 1rem;
   width: 82vw;
   max-height: 100vh;
-  overflow-y: auto;
+ overflow-y: auto;
+ border:1px solid red;
 `;
 
 export const FooterCard = styled.footer`

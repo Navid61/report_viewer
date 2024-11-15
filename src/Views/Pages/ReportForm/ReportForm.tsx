@@ -3,12 +3,12 @@ import Editor from "../../../components/Editor/Editor"; // Adjust path as needed
 import React, { useState, useEffect, useRef } from "react";
 
 // Styled Wrapper for Sections
-const SectionWrapper = styled.div<{ isActive: boolean }>`
+const SectionWrapper = styled.div<{ $isActive: boolean }>`
   padding: 20px;
   margin: 20px 0;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
-  background-color: ${({ isActive }) => (isActive ? "#FBF8DD" : "#fafafa")};
+  background-color: ${({ $isActive }) => ($isActive ? "#FBF8DD" : "#fafafa")};
   transition: background-color 0.3s ease;
 `;
 
@@ -27,7 +27,7 @@ function UploadField({ label }: UploadFieldProps) {
 
 // Individual Sub-Item Component
 const InspectionSubItem = React.memo(({ title }: { title: string }) => (
-  <SectionWrapper isActive={false}>
+  <SectionWrapper $isActive={false}>
     <h4>{title}</h4>
     <Editor />
     <UploadField label={`${title} Image/Video`} />
@@ -223,7 +223,8 @@ function ReportForm({ onSectionChange }: { onSectionChange: (id: number, section
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const section = sections.find((sec) => sec.title === entry.target.id);
+            const section = sections.find((sec) => sec.id.toString() === entry.target.id);
+
             if (section) {
               setActiveSection(section.title);
               onSectionChange(section.id, section.title);
@@ -235,9 +236,7 @@ function ReportForm({ onSectionChange }: { onSectionChange: (id: number, section
     );
 
     // Observe all sections
-    sectionRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
+    sectionRefs.current.forEach((ref) => { if (ref) observer.observe(ref); });
 
     return () => observer.disconnect();
   }, [onSectionChange]);
@@ -248,10 +247,12 @@ function ReportForm({ onSectionChange }: { onSectionChange: (id: number, section
       {sections.map((section) => (
         <div
           key={section.id}
-          id={section.title}
-          ref={(el) => el && sectionRefs.current.set(section.title, el)}
+          id={section.id.toString()}
+          ref={(el) => {
+            if (el) sectionRefs.current.set(section.id.toString(), el);
+          }}
         >
-          <SectionWrapper isActive={activeSection === section.title}>
+          <SectionWrapper $isActive={activeSection === section.title}>
             <DynamicSection title={section.title} items={section.items} />
           </SectionWrapper>
         </div>
