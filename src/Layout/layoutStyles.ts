@@ -40,7 +40,7 @@ background-color:#DFF2EB;
   padding: 1rem;
   width: 17vw;
   max-height: 100vh;
-  top: 10px; /* Ensure it sticks at the top */
+  top: 2rem; /* Ensure it sticks at the top */
   position: sticky;
   @media (max-width: 768px) {
     display: none; /* Hide sidebar on smaller screens */
@@ -60,14 +60,22 @@ export const StyledSection = styled.div<{ $active: boolean }>`
 
 /**      */
 
-export const MainContentCard = styled.main`
-  grid-area: main;
+export const MainContentCard = styled.div`
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr; // 3 columns
+  gap: 1rem; // Gap between grid items
   padding: 1rem;
   width: 82vw;
-  max-height: 100vh;
- overflow-y: auto;
- border:1px solid red;
+  height: 100vh;
+  overflow-y: auto;
+  border: 1px solid red;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr; // Single column on smaller screens
+  }
 `;
+
 
 export const FooterCard = styled.footer`
   display: grid;

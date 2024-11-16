@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from "react";
+import React, { useState, Suspense,useEffect } from "react";
 import { MainContainer } from "./Layout/layoutStyles";
 
 const Header = React.lazy(() => import("./Layout/Header/Header"));
@@ -14,6 +14,9 @@ function App() {
     setCurrentId(id);
     setCurrentSection(section);
   };
+
+  useEffect(() => { window.scrollTo(0, 0); // Scroll to the top of the page on mount
+     }, []);
 
   return (
     <MainContainer>
