@@ -1,4 +1,4 @@
-import React, { useState, Suspense,useEffect } from "react";
+import React, { useState, Suspense } from "react";
 import { MainContainer } from "./Layout/layoutStyles";
 
 const Header = React.lazy(() => import("./Layout/Header/Header"));
@@ -7,7 +7,7 @@ const Sidebar = React.lazy(() => import("./Layout/Sidebar/Sidebar"));
 const MainSection = React.lazy(() => import("./Layout/MainSection/MainSection"));
 
 function App() {
-  const [currentId, setCurrentId] = useState<number| null>(null);
+  const [currentId, setCurrentId] = useState<number | null>(null);
   const [currentSection, setCurrentSection] = useState<string | null>(null);
 
   const handleSectionChange = (id: number, section: string) => {
@@ -15,22 +15,26 @@ function App() {
     setCurrentSection(section);
   };
 
-  useEffect(() => { window.scrollTo(0, 0); // Scroll to the top of the page on mount
-     }, []);
+  const handleLoad = () => {
+    console.log("A component has been loaded");
+  };
 
   return (
     <MainContainer>
       <Suspense fallback={<div>Loading...</div>}>
-        <Header />
+        <Header onLoad={handleLoad} />
       </Suspense>
       <Suspense fallback={<div>Loading...</div>}>
-        <Sidebar activeSection={currentSection} item={currentId} />
+        <Sidebar activeSection={currentSection} item={currentId} onLoad={handleLoad} />
       </Suspense>
       <Suspense fallback={<div>Loading...</div>}>
-        <MainSection onSectionChange={handleSectionChange} />
+        <MainSection
+          onSectionChange={handleSectionChange}
+          onLoad={handleLoad}
+        />
       </Suspense>
       <Suspense fallback={<div>Loading...</div>}>
-        <Footer />
+        <Footer onLoad={handleLoad} />
       </Suspense>
     </MainContainer>
   );

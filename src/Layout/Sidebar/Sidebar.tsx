@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { SidebarCard, StyledSection } from "../layoutStyles";
 
 interface SidebarProps {
   item: number | null;
   activeSection: string | null;
+  onLoad: () => void;  // Accepting the onLoad function as a prop
 }
 
-const Sidebar: React.FC<SidebarProps> = React.memo(({ item, activeSection }) => {
+const Sidebar: React.FC<SidebarProps> = React.memo(({ item, activeSection, onLoad }) => {
   const sections = [
     { id: 1, title: "Exterior" },
     { id: 2, title: "Interior" },
@@ -28,6 +29,11 @@ const Sidebar: React.FC<SidebarProps> = React.memo(({ item, activeSection }) => 
   const isActive = (sectionId: number, sectionTitle: string) => {
     return activeSection === sectionTitle && item === sectionId;
   };
+
+  useEffect(() => {
+    // Trigger onLoad when Sidebar component is mounted
+    onLoad();
+  }, [onLoad]);
 
   return (
     <SidebarCard>

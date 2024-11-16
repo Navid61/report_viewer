@@ -1,30 +1,40 @@
-import React, { useEffect, useState } from "react";
-import { MainContentCard } from "../layoutStyles";
+import React, { useState, useRef, useLayoutEffect } from "react";
 import MainContent from "../../Views/Pages/MainContent/MainContent";
 
-interface MainContentProps {
+interface MainSectionProps {
   onSectionChange: (id: number, section: string) => void;
+ 
+  onLoad: () => void;
 }
 
-const MainSection: React.FC<MainContentProps> = ({ onSectionChange }) => {
-  const [currentId, setCurrentId] = useState<number | null>(null);
-  const [currentSection, setCurrentSection] = useState<string>('');
+const MainSection: React.FC<MainSectionProps> = ({ onSectionChange,  onLoad }) => {
+  const [loaded, setLoaded] = useState<boolean>(false);
+  const mainContentCardRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (currentId !== null && currentSection !== '') {
-      onSectionChange(currentId, currentSection);
+  // Scroll the MainContentCard to the top when MainContent is loaded
+  useLayoutEffect(() => {
+    if (loaded && mainContentCardRef.current) {
+      mainContentCardRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  }, [currentId, currentSection, onSectionChange]);
+  }, [loaded]);
+
+  const handleContentLoaded = () => {
+    setLoaded(true);
+    onLoad();
+  };
 
   const handleSectionChange = (id: number, section: string) => {
-    setCurrentId(id);
-    setCurrentSection(section);
+    onSectionChange(id, section);
   };
 
   return (
-    <MainContentCard>
-      <MainContent onSectionChange={handleSectionChange} />
-    </MainContentCard>
+    <div ref={mainContentCardRef}>
+      <MainContent
+        onSectionChange={handleSectionChange}
+        onLoad={handleContentLoaded}
+      
+      />
+    </div>
   );
 };
 

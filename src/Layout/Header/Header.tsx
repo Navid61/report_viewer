@@ -1,12 +1,21 @@
-import React from 'react';
- import { HeaderCard} from '../layoutStyles';
-const Header: React.FC = () => {
- return (
+import React, { useEffect } from 'react';
+import { HeaderCard } from '../layoutStyles';
+
+interface HeaderProps {
+  onLoad: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ onLoad }) => {
+  useEffect(() => {
+    // Trigger onLoad when the component has fully mounted
+    onLoad();
+  }, [onLoad]);
+
+  return (
     <HeaderCard>
-<p>Header</p>
+      <p>Header</p>
     </HeaderCard>
- 
- );
+  );
 };
 
 export default Header;

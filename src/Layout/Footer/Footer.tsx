@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FooterCard } from '../layoutStyles';
 
-const Footers: React.FC = () => {
- return (
- <>
- <FooterCard>
-    <p>Hello</p>
- </FooterCard>
- </>
- 
- );
+interface FooterProps {
+  onLoad: () => void;
+}
+
+const Footers: React.FC<FooterProps> = ({ onLoad }) => {
+  useEffect(() => {
+    // Trigger onLoad when the component has fully mounted
+    onLoad();
+  }, [onLoad]);
+
+  return (
+    <FooterCard>
+      <p>Hello</p>
+    </FooterCard>
+  );
 };
 
 export default Footers;

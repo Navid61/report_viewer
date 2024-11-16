@@ -1,29 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ReportForm from "../ReportForm/ReportForm";
 
 interface MainContentProps {
   onSectionChange: (id: number, section: string) => void;
+  onLoad: () => void;
+ 
 }
 
-const MainContent: React.FC<MainContentProps> = ({ onSectionChange }) => {
-  const [currentId, setCurrentId] = useState<number | null>(null);
-  const [currentSection, setCurrentSection] = useState<string>('');
-
+const MainContent: React.FC<MainContentProps> = ({ onSectionChange, onLoad }) => {
   useEffect(() => {
-    if (currentId !== null && currentSection !== '') {
-      onSectionChange(currentId, currentSection);
-    }
-  }, [currentId, currentSection, onSectionChange]);
-
-  const handleSectionChange = (id: number, section: string) => {
-    setCurrentId(id);
-    setCurrentSection(section);
-  };
+    onLoad(); // Trigger onLoad when MainContent is mounted
+  }, [onLoad]);
 
   return (
-    <>
-      <ReportForm onSectionChange={handleSectionChange} />
-    </>
+    <div>
+      <ReportForm
+        onSectionChange={onSectionChange}
+      
+      />
+    </div>
   );
 };
 
