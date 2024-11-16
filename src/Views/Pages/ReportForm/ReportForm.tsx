@@ -36,9 +36,11 @@ const InspectionSubItem = React.memo(({ title }: { title: string }) => (
 
 // Component to Handle Large Sections with Dynamic Chunk Loading
 const DynamicSection = ({ items, title }: { items: string[]; title: string }) => {
+  // console.log('title',title , 'items ', items);
+  
   const [visibleItems, setVisibleItems] = useState(5); // Initial visible items
   const chunkSize = 5;
-
+console.log('visibleItm ', visibleItems)
   const loadMoreItems = () => {
     setVisibleItems((prev) => Math.min(prev + chunkSize, items.length));
   };
@@ -46,6 +48,7 @@ const DynamicSection = ({ items, title }: { items: string[]; title: string }) =>
   return (
     <div style={{ padding: "20px" }}>
       <h2>{title}</h2>
+     
       {items.slice(0, visibleItems).map((item, index) => (
         <InspectionSubItem key={index} title={item} />
       ))}
@@ -238,6 +241,9 @@ function ReportForm({ onSectionChange }: { onSectionChange: (id: number, section
     // Observe all sections
     sectionRefs.current.forEach((ref) => { if (ref) observer.observe(ref); });
 
+    // Scroll to top on mount (refresh)
+    window.scrollTo(0, 0);
+
     return () => observer.disconnect();
   }, [onSectionChange]);
 
@@ -245,6 +251,7 @@ function ReportForm({ onSectionChange }: { onSectionChange: (id: number, section
     <div>
       <h1>Property Inspection Report</h1>
       {sections.map((section) => (
+         console.log('section ', section),
         <div
           key={section.id}
           id={section.id.toString()}

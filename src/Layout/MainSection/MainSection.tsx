@@ -14,6 +14,11 @@ const MainSection: React.FC<MainContentProps> = ({ onSectionChange }) => {
     if (currentId !== null && currentSection !== '') {
       onSectionChange(currentId, currentSection);
     }
+
+    const mainContentCard = document.querySelector('main'); // Select the main content card 
+    if (mainContentCard) { mainContentCard.scrollTop = 0;}; // Scroll to the top of the content card
+
+    
   }, [currentId, currentSection, onSectionChange]);
 
   const handleSectionChange = (id: number, section: string) => {
