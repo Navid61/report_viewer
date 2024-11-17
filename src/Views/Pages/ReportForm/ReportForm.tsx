@@ -5,7 +5,7 @@ import Editor from "../../../components/Editor/Editor"; // Assuming it's defined
 
 // Styled Wrapper for Sections
 const SectionWrapper = styled.div<{ $isActive: boolean }>`
-  padding: 20px;
+  padding: 10px;
   margin: 20px 0;
   border: 1px solid #e0e0e0;
   border-radius: 8px;

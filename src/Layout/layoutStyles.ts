@@ -18,6 +18,7 @@ export const MainContainer = styled.div`
       "footer";
   }
   color: black;
+  gap:2rem;
 `;
 
 // Header, Sidebar, Main Content, and Footer Components
@@ -34,13 +35,13 @@ export const HeaderCard = styled.header`
 `;
 
 export const SidebarCard = styled.aside`
-background-color:#DFF2EB;
+background-color:#FEFAF6;
   grid-area: sidebar;
   color: white;
   padding: 1rem;
   width: 17vw;
   max-height: 100vh;
-  top: 2rem; /* Ensure it sticks at the top */
+  top: 4rem; /* Ensure it sticks at the top */
   position: sticky;
   @media (max-width: 768px) {
     display: none; /* Hide sidebar on smaller screens */
@@ -55,6 +56,11 @@ export const StyledSection = styled.div<{ $active: boolean }>`
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   /* You can add any styling based on $id here if needed */
+ &:hover {
+ background-color:#D0E8C5;
+ font-weight:bold;
+ font-size: 1.5em;
+ }
     
 `;
 
