@@ -4,12 +4,12 @@ import ReportForm from "../ReportForm/ReportForm";
 interface MainContentProps {
   onSectionChange: (id: number, section: string) => void;
   onLoad: () => void;
-  // selectedMenuId:number|null;
-  // selectedMenuName:string|null;
+  selectedMenuId:number|null;
+  selectedMenuName:string|null;
  
 }
 
-const MainContent: React.FC<MainContentProps> = ({ onSectionChange, onLoad }) => {
+const MainContent: React.FC<MainContentProps> = ({ onSectionChange, onLoad , selectedMenuId,selectedMenuName}) => {
   useEffect(() => {
     onLoad(); // Trigger onLoad when MainContent is mounted
   }, [onLoad]);
@@ -18,7 +18,8 @@ const MainContent: React.FC<MainContentProps> = ({ onSectionChange, onLoad }) =>
     <div>
       <ReportForm
         onSectionChange={onSectionChange}
-      
+        selectedMenuId={ selectedMenuId}
+        selectedMenuName={selectedMenuName}
       
       />
     </div>

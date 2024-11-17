@@ -63,10 +63,29 @@ interface ReportFormProps {
   selectedMenuName: string | null;
 }
 
-// Main Form Component using scroll and getBoundingClientRect
-const  ReportForm:React.FC<ReportFormProps> =({ onSectionChange,selectedMenuId,selectedMenuName }) =>{
+// Main Form Component
+const ReportForm: React.FC<ReportFormProps> = ({
+  onSectionChange,
+  selectedMenuId,
+  selectedMenuName,
+}) => {
   const sectionRefs = useRef<Map<string, HTMLElement>>(new Map());
   const [activeSection, setActiveSection] = useState<string | null>(null);
+
+  // Automatically scroll to the selected section
+  useEffect(() => {
+    if (selectedMenuId !== null || selectedMenuName !== null) {
+      const sectionElement = Array.from(sectionRefs.current.values()).find(
+        (el) =>
+          el.id === selectedMenuId?.toString() ||
+          sections.find((sec) => sec.id.toString() === el.id)?.title === selectedMenuName
+      );
+
+      if (sectionElement) {
+        sectionElement.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  }, [selectedMenuId, selectedMenuName]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -98,37 +117,6 @@ const  ReportForm:React.FC<ReportFormProps> =({ onSectionChange,selectedMenuId,s
     };
   }, [onSectionChange, activeSection]);
 
-
-   // Scroll to selected section programmatically when selectedMenuId or selectedMenuName changes
-  //  useEffect(() => {
-  //   if (selectedMenuId !== null && selectedMenuName !== null) {
-  //     const sectionElement = Array.from(sectionRefs.current.values()).find(
-  //       (el) =>
-  //         el.id === selectedMenuId.toString() ||
-  //         sections.find((sec) => sec.id.toString() === el.id)?.title === selectedMenuName
-  //     );
-
-  //     if (sectionElement) {
-  //       setIsScrollingProgrammatically(true); // Set flag to prevent scroll interference
-  //       sectionElement.scrollIntoView({ behavior: "smooth", block: "start" });
-
-  //       // Update the active section state with the section's title or ID
-  //       const sectionTitle = sections.find(
-  //         (sec) => sec.id.toString() === sectionElement.id
-  //       )?.title;
-
-  //       if (sectionTitle) {
-  //         setActiveSection(sectionTitle);
-  //       }
-  //     }
-  //   }
-  // }, [selectedMenuId, selectedMenuName]);
-
-  useEffect(() => {
-    // Scroll to top after the initial render
-    window.scrollTo(0, 0);
-  }, []);
-
   return (
     <div>
       <h1>Property Inspection Report</h1>
@@ -147,6 +135,6 @@ const  ReportForm:React.FC<ReportFormProps> =({ onSectionChange,selectedMenuId,s
       ))}
     </div>
   );
-}
+};
 
 export default ReportForm;
