@@ -3,13 +3,13 @@ import MainContent from "../../Views/Pages/MainContent/MainContent";
 
 interface MainSectionProps {
   onSectionChange: (id: number, section: string) => void;
-  // selectedMenuId:number |null;
-  // selectedMenuName:string;
+  selectedMenuId:number;
+  selectedMenuName:string;
  
   onLoad: () => void;
 }
 
-const MainSection: React.FC<MainSectionProps> = ({ onSectionChange,  onLoad }) => {
+const MainSection: React.FC<MainSectionProps> = ({ onSectionChange,  onLoad ,selectedMenuId,selectedMenuName}) => {
   const [loaded, setLoaded] = useState<boolean>(false);
   const mainContentCardRef = useRef<HTMLDivElement>(null);
 
@@ -34,8 +34,8 @@ const MainSection: React.FC<MainSectionProps> = ({ onSectionChange,  onLoad }) =
       <MainContent
         onSectionChange={handleSectionChange}
         onLoad={handleContentLoaded}
-        // slectedMenuId={selectedMenuId}
-        // selectedMenuName={selectedMenuName}
+        selectedMenuId={selectedMenuId}
+        selectedMenuName={selectedMenuName}
       
       />
     </div>

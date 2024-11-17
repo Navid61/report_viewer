@@ -57,8 +57,14 @@ const DynamicSection = ({ items, title }: { items: string[]; title: string }) =>
   );
 };
 
+interface ReportFormProps {
+  onSectionChange: (id: number, section: string) => void;
+  selectedMenuId: number | null;
+  selectedMenuName: string | null;
+}
+
 // Main Form Component using scroll and getBoundingClientRect
-function ReportForm({ onSectionChange }: { onSectionChange: (id: number, section: string) => void }) {
+const  ReportForm:React.FC<ReportFormProps> =({ onSectionChange,selectedMenuId,selectedMenuName }) =>{
   const sectionRefs = useRef<Map<string, HTMLElement>>(new Map());
   const [activeSection, setActiveSection] = useState<string | null>(null);
 
@@ -91,6 +97,32 @@ function ReportForm({ onSectionChange }: { onSectionChange: (id: number, section
       window.removeEventListener("scroll", handleScroll);
     };
   }, [onSectionChange, activeSection]);
+
+
+   // Scroll to selected section programmatically when selectedMenuId or selectedMenuName changes
+  //  useEffect(() => {
+  //   if (selectedMenuId !== null && selectedMenuName !== null) {
+  //     const sectionElement = Array.from(sectionRefs.current.values()).find(
+  //       (el) =>
+  //         el.id === selectedMenuId.toString() ||
+  //         sections.find((sec) => sec.id.toString() === el.id)?.title === selectedMenuName
+  //     );
+
+  //     if (sectionElement) {
+  //       setIsScrollingProgrammatically(true); // Set flag to prevent scroll interference
+  //       sectionElement.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  //       // Update the active section state with the section's title or ID
+  //       const sectionTitle = sections.find(
+  //         (sec) => sec.id.toString() === sectionElement.id
+  //       )?.title;
+
+  //       if (sectionTitle) {
+  //         setActiveSection(sectionTitle);
+  //       }
+  //     }
+  //   }
+  // }, [selectedMenuId, selectedMenuName]);
 
   useEffect(() => {
     // Scroll to top after the initial render
