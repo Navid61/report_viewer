@@ -3,8 +3,8 @@ import MainContent from "../../Views/Pages/MainContent/MainContent";
 
 interface MainSectionProps {
   onSectionChange: (id: number, section: string) => void;
-  selectedMenuId:number;
-  selectedMenuName:string;
+  selectedMenuId:number | null;
+  selectedMenuName:string | null;
  
   onLoad: () => void;
 }
