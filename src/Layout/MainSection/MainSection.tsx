@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import MainContent from "../../Views/Pages/MainContent/MainContent";
 
+
 interface MainSectionProps {
   onSectionChange: (id: number, section: string) => void;
   selectedMenuId:number | null;

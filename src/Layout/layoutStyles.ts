@@ -70,7 +70,7 @@ export const MainContentCard = styled.div`
   display: grid;
   grid-template-rows: auto;
   grid-template-columns: 1fr; // 3 columns
-  gap: 1rem; // Gap between grid items
+  
   padding: 1rem;
   width: 82vw;
   height: 100vh;
