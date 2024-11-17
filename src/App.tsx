@@ -13,19 +13,19 @@ function App() {
     name: string | null;
   }>({ id: null, name: null });
 
-  const [selectedMenu, setSelectedMenu] = useState<{
-    id: number | null;
-    name: string | null;
-  }>({ id: null, name: null });
+  // const [selectedMenu, setSelectedMenu] = useState<{
+  //   id: number | null;
+  //   name: string | null;
+  // }>({ id: null, name: null });
 
   // Handlers
   const handleSectionChange = useCallback((id: number, section: string) => {
     setCurrentSection({ id, name: section });
   }, []);
 
-  const handleMenuSelected = useCallback((menuId: number, menuName: string) => {
-    setSelectedMenu({ id: menuId, name: menuName });
-  }, []);
+  // const handleMenuSelected = useCallback((menuId: number, menuName: string) => {
+  //   setSelectedMenu({ id: menuId, name: menuName });
+  // }, []);
 
   const handleLoad = useCallback((componentName: string) => {
     console.log(`${componentName} has been loaded`);
@@ -39,13 +39,13 @@ function App() {
           activeSection={currentSection.name}
           item={currentSection.id}
           onLoad={() => handleLoad("Sidebar")}
-          onMenuSelected={handleMenuSelected}
+          // onMenuSelected={handleMenuSelected}
         />
         <MainSection
           onSectionChange={handleSectionChange}
           onLoad={() => handleLoad("MainSection")}
-          selectedMenuId={selectedMenu.id}
-          selectedMenuName={selectedMenu.name}
+          // selectedMenuId={selectedMenu.id}
+          // selectedMenuName={selectedMenu.name}
         />
         <Footer onLoad={() => handleLoad("Footer")} />
       </Suspense>

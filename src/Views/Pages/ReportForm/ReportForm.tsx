@@ -9,7 +9,7 @@ const SectionWrapper = styled.div<{ $isActive: boolean }>`
   margin: 20px 0;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
-  background-color: ${({ $isActive }) => ($isActive ? "#FBF8DD" : "#fafafa")};
+  background-color: ${({ $isActive }) => ($isActive ? "blue" : "#fafafa")};
   transition: background-color 0.3s ease;
 `;
 
@@ -57,51 +57,50 @@ const DynamicSection = ({ items, title }: { items: string[]; title: string }) =>
   );
 };
 
-// Main Form Component with Intersection Observer
+// Main Form Component using scroll and getBoundingClientRect
 function ReportForm({ onSectionChange }: { onSectionChange: (id: number, section: string) => void }) {
   const sectionRefs = useRef<Map<string, HTMLElement>>(new Map());
   const [activeSection, setActiveSection] = useState<string | null>(null);
-  const [loadedSections, setLoadedSections] = useState<number>(1); // To track number of loaded sections
-  const totalSections = sections.length;
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const section = sections.find((sec) => sec.id.toString() === entry.target.id);
-            if (section && activeSection !== section.title) {
-              setActiveSection(section.title);
-              onSectionChange(section.id, section.title);
-              // Increment the loaded sections count when a section is fully loaded
-              setLoadedSections((prev) => prev + 1);
-            }
-          }
-        });
-      },
-      { threshold: 0.4 } // Adjusted threshold for better detection of large sections
-    );
+    const handleScroll = () => {
+      let closestSection: string | null = null;
+      let closestDistance = Infinity;
 
-    // Observe all sections
-    sectionRefs.current.forEach((ref) => { if (ref) observer.observe(ref); });
+      sectionRefs.current.forEach((el, id) => {
+        const rect = el.getBoundingClientRect();
+        const distance = Math.abs(rect.top);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestSection = id;
+        }
+      });
 
-    return () => observer.disconnect();
-  }, [onSectionChange]);
+      if (closestSection) {
+        const section = sections.find((sec) => sec.id.toString() === closestSection);
+        if (section && section.title !== activeSection) {
+          setActiveSection(section.title);
+          onSectionChange(section.id, section.title);
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [onSectionChange, activeSection]);
 
   useEffect(() => {
-    if (loadedSections === totalSections) {
-      // Scroll to top only once after all items are loaded
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-      }, 100); // Ensure it happens after all DOM updates
-    }
-  }, [loadedSections, totalSections]);
+    // Scroll to top after the initial render
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div>
       <h1>Property Inspection Report</h1>
-      {sections.map((section,index) => (
-        //  console.log('activeSection ', activeSection,'section title ', section.title , 'section items ', section.items),
+      {sections.map((section, index) => (
         <div
           key={index}
           id={section.id.toString()}
@@ -109,7 +108,6 @@ function ReportForm({ onSectionChange }: { onSectionChange: (id: number, section
             if (el) sectionRefs.current.set(section.id.toString(), el);
           }}
         >
-       
           <SectionWrapper $isActive={activeSection === section.title}>
             <DynamicSection title={section.title} items={section.items} />
           </SectionWrapper>

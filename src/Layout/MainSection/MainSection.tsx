@@ -1,36 +1,42 @@
-import React, { useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import MainContent from "../../Views/Pages/MainContent/MainContent";
 
 interface MainSectionProps {
   onSectionChange: (id: number, section: string) => void;
-  selectedMenuId: number | null;
-  selectedMenuName: string | null;
+  // selectedMenuId:number |null;
+  // selectedMenuName:string;
+ 
   onLoad: () => void;
 }
 
-const MainSection: React.FC<MainSectionProps> = ({ 
-  onSectionChange, 
-  onLoad, 
-  selectedMenuId, 
-  selectedMenuName 
-}) => {
+const MainSection: React.FC<MainSectionProps> = ({ onSectionChange,  onLoad }) => {
+  const [loaded, setLoaded] = useState<boolean>(false);
   const mainContentCardRef = useRef<HTMLDivElement>(null);
 
-  // Scroll the MainContentCard to the top when the content is loaded
-  const onContentLoad = () => {
-    if (mainContentCardRef.current) {
-      mainContentCardRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  // Scroll the MainContentCard to the top when MainContent is loaded
+  useEffect(() => {
+    if (loaded && mainContentCardRef.current) {
+      mainContentCardRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  }, [loaded]);
+
+  const handleContentLoaded = () => {
+    setLoaded(true);
     onLoad();
+  };
+
+  const handleSectionChange = (id: number, section: string) => {
+    onSectionChange(id, section);
   };
 
   return (
     <div ref={mainContentCardRef}>
       <MainContent
-        onSectionChange={onSectionChange}
-        onLoad={onContentLoad}
-        selectedMenuId={selectedMenuId}
-        selectedMenuName={selectedMenuName}
+        onSectionChange={handleSectionChange}
+        onLoad={handleContentLoaded}
+        // slectedMenuId={selectedMenuId}
+        // selectedMenuName={selectedMenuName}
+      
       />
     </div>
   );
