@@ -1,40 +1,53 @@
-import React, { useState, Suspense } from "react";
+import React, { useState, useCallback, Suspense } from "react";
 import { MainContainer } from "./Layout/layoutStyles";
 
+// Lazy-loaded components
 const Header = React.lazy(() => import("./Layout/Header/Header"));
 const Footer = React.lazy(() => import("./Layout/Footer/Footer"));
 const Sidebar = React.lazy(() => import("./Layout/Sidebar/Sidebar"));
 const MainSection = React.lazy(() => import("./Layout/MainSection/MainSection"));
 
 function App() {
-  const [currentId, setCurrentId] = useState<number | null>(null);
-  const [currentSection, setCurrentSection] = useState<string | null>(null);
+  const [currentSection, setCurrentSection] = useState<{
+    id: number | null;
+    name: string | null;
+  }>({ id: null, name: null });
 
-  const handleSectionChange = (id: number, section: string) => {
-    setCurrentId(id);
-    setCurrentSection(section);
-  };
+  const [selectedMenu, setSelectedMenu] = useState<{
+    id: number | null;
+    name: string | null;
+  }>({ id: null, name: null });
 
-  const handleLoad = () => {
-    console.log("A component has been loaded");
-  };
+  // Handlers
+  const handleSectionChange = useCallback((id: number, section: string) => {
+    setCurrentSection({ id, name: section });
+  }, []);
+
+  const handleMenuSelected = useCallback((menuId: number, menuName: string) => {
+    setSelectedMenu({ id: menuId, name: menuName });
+  }, []);
+
+  const handleLoad = useCallback((componentName: string) => {
+    console.log(`${componentName} has been loaded`);
+  }, []);
 
   return (
     <MainContainer>
       <Suspense fallback={<div>Loading...</div>}>
-        <Header onLoad={handleLoad} />
-      </Suspense>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Sidebar activeSection={currentSection} item={currentId} onLoad={handleLoad} />
-      </Suspense>
-      <Suspense fallback={<div>Loading...</div>}>
+        <Header onLoad={() => handleLoad("Header")} />
+        <Sidebar
+          activeSection={currentSection.name}
+          item={currentSection.id}
+          onLoad={() => handleLoad("Sidebar")}
+          onMenuSelected={handleMenuSelected}
+        />
         <MainSection
           onSectionChange={handleSectionChange}
-          onLoad={handleLoad}
+          onLoad={() => handleLoad("MainSection")}
+          selectedMenuId={selectedMenu.id}
+          selectedMenuName={selectedMenu.name}
         />
-      </Suspense>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Footer onLoad={handleLoad} />
+        <Footer onLoad={() => handleLoad("Footer")} />
       </Suspense>
     </MainContainer>
   );

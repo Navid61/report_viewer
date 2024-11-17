@@ -4,10 +4,11 @@ import { SidebarCard, StyledSection } from "../layoutStyles";
 interface SidebarProps {
   item: number | null;
   activeSection: string | null;
-  onLoad: () => void;  // Accepting the onLoad function as a prop
+  onLoad: () => void;
+  onMenuSelected: (menuId: number, menuName: string) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = React.memo(({ item, activeSection, onLoad }) => {
+const Sidebar: React.FC<SidebarProps> = React.memo(({ item, activeSection, onLoad, onMenuSelected }) => {
   const sections = [
     { id: 1, title: "Exterior" },
     { id: 2, title: "Interior" },
@@ -30,15 +31,26 @@ const Sidebar: React.FC<SidebarProps> = React.memo(({ item, activeSection, onLoa
     return activeSection === sectionTitle && item === sectionId;
   };
 
+  const handleMenuSelected = (menuId: number, menuName: string) => {
+   
+   
+      onMenuSelected(menuId, menuName);
+    
+   
+  };
+
   useEffect(() => {
-    // Trigger onLoad when Sidebar component is mounted
     onLoad();
   }, [onLoad]);
 
   return (
     <SidebarCard>
       {sections.map((section) => (
-        <StyledSection key={section.id} $active={isActive(section.id, section.title)}>
+        <StyledSection
+          key={section.id}
+          $active={isActive(section.id, section.title)}
+          onClick={() => handleMenuSelected(section.id, section.title)}
+        >
           {section.title}
         </StyledSection>
       ))}

@@ -37,8 +37,8 @@ const InspectionSubItem = React.memo(({ title }: { title: string }) => (
 
 // Component to Handle Large Sections with Dynamic Chunk Loading
 const DynamicSection = ({ items, title }: { items: string[]; title: string }) => {
-  const [visibleItems, setVisibleItems] = useState(5); // Initial visible items
-  const chunkSize = 5;
+  const [visibleItems, setVisibleItems] = useState(6); // Initial visible items
+  const chunkSize = 3;
 
   const loadMoreItems = () => {
     setVisibleItems((prev) => Math.min(prev + chunkSize, items.length));
@@ -61,7 +61,7 @@ const DynamicSection = ({ items, title }: { items: string[]; title: string }) =>
 function ReportForm({ onSectionChange }: { onSectionChange: (id: number, section: string) => void }) {
   const sectionRefs = useRef<Map<string, HTMLElement>>(new Map());
   const [activeSection, setActiveSection] = useState<string | null>(null);
-  const [loadedSections, setLoadedSections] = useState<number>(0); // To track number of loaded sections
+  const [loadedSections, setLoadedSections] = useState<number>(1); // To track number of loaded sections
   const totalSections = sections.length;
 
   useEffect(() => {
@@ -70,7 +70,7 @@ function ReportForm({ onSectionChange }: { onSectionChange: (id: number, section
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const section = sections.find((sec) => sec.id.toString() === entry.target.id);
-            if (section) {
+            if (section && activeSection !== section.title) {
               setActiveSection(section.title);
               onSectionChange(section.id, section.title);
               // Increment the loaded sections count when a section is fully loaded
@@ -100,14 +100,16 @@ function ReportForm({ onSectionChange }: { onSectionChange: (id: number, section
   return (
     <div>
       <h1>Property Inspection Report</h1>
-      {sections.map((section) => (
+      {sections.map((section,index) => (
+        //  console.log('activeSection ', activeSection,'section title ', section.title , 'section items ', section.items),
         <div
-          key={section.id}
+          key={index}
           id={section.id.toString()}
           ref={(el) => {
             if (el) sectionRefs.current.set(section.id.toString(), el);
           }}
         >
+       
           <SectionWrapper $isActive={activeSection === section.title}>
             <DynamicSection title={section.title} items={section.items} />
           </SectionWrapper>
