@@ -195,7 +195,7 @@ export default function ToolbarPlugin() {
          onClick={() => {
          editor.dispatchCommand(INSERT_PAGE_BREAK, undefined);
         }}
-        className="item">
+        className="page-break">
         <i className="icon page-break" />
         <span className="text">Page Break</span>
       </button>

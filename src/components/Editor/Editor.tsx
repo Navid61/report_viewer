@@ -15,6 +15,7 @@ import { PageBreakNode } from './nodes/PageBreakNode';
 
 
 
+
 import {
   $isTextNode,
   DOMConversionMap,
@@ -184,7 +185,12 @@ export default function Editor() {
           <OnChangePlugin onChange={handleChange} />
      
           <AutoLinkPlugin matchers={urlMatchers} />
-         <PageBreakPlugin/>
+       
+         <PageBreakPlugin />
+       
+        
+         
+       
           {/* <TreeViewPlugin /> */}
         </div>
       </div>

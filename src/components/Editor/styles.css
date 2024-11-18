@@ -454,3 +454,8 @@ i.right-align {
 i.justify-align {
   background-image: url(icons/justify.svg);
 }
+
+i.page-break,
+.icon.page-break {
+  background-image: url(images/icons/scissors.svg);
+}
