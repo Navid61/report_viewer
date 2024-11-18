@@ -13,7 +13,6 @@ import {
   REDO_COMMAND,
   SELECTION_CHANGE_COMMAND,
   UNDO_COMMAND,
- 
   
 } from 'lexical';
 import FontFamilyDropDown from './FontFamilyDropDown';
@@ -83,11 +82,8 @@ export default function ToolbarPlugin() {
         },
         LowPriority,
       ),
-      
     );
   }, [editor, $updateToolbar]);
-
-  
 
   return (
     <div className="toolbar" ref={toolbarRef}>
@@ -193,11 +189,11 @@ export default function ToolbarPlugin() {
       <Divider />
       <button
          onClick={() => {
-         editor.dispatchCommand(INSERT_PAGE_BREAK, undefined);
-        }}
-        className="page-break">
-        <i className="icon page-break" />
-        <span className="text">Page Break</span>
+                    editor.dispatchCommand(INSERT_PAGE_BREAK, undefined);
+                  }}
+                  className="item">
+                  <i className="icon page-break" />
+                  <span className="text">Page Break</span>
       </button>
 
     </div>

@@ -16,6 +16,7 @@ import { PageBreakNode } from './nodes/PageBreakNode';
 
 
 
+
 import {
   $isTextNode,
   DOMConversionMap,
@@ -167,7 +168,7 @@ export default function Editor() {
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className="editor-container">
-        <ToolbarPlugin />
+        <ToolbarPlugin   />
         
         <div className="editor-inner">
           <RichTextPlugin

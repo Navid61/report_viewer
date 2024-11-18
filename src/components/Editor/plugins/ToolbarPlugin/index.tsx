@@ -51,8 +51,8 @@ import {
   UNDO_COMMAND,
 } from 'lexical';
 import {Dispatch, useCallback, useEffect, useState} from 'react';
-import * as React from 'react';
-import {IS_APPLE} from 'shared/environment';
+// import * as React from 'react';
+// import {IS_APPLE} from 'shared/environment';
 
 import {
   blockTypeToBlockName,
@@ -66,9 +66,9 @@ import DropdownColorPicker from '../../ui/DropdownColorPicker';
 import {getSelectedNode} from '../../utils/getSelectedNode';
 import {sanitizeUrl} from '../../utils/url';
 import {EmbedConfigs} from '../AutoEmbedPlugin';
-import {INSERT_COLLAPSIBLE_COMMAND} from '../../CollapsiblePlugin';
-import {InsertEquationDialog} from '../EquationsPlugin';
-import {INSERT_EXCALIDRAW_COMMAND} from '../ExcalidrawPlugin';
+import {INSERT_COLLAPSIBLE_COMMAND} from '../CollapsiblePlugin';
+// import {InsertEquationDialog} from '../EquationsPlugin';
+// import {INSERT_EXCALIDRAW_COMMAND} from '../ExcalidrawPlugin';
 import {
   INSERT_IMAGE_COMMAND,
   InsertImageDialog,
@@ -90,11 +90,13 @@ import {
   formatParagraph,
   formatQuote,
 } from './utils';
+import { InsertInlineImageDialog } from '../InlineImagePlugin';
+import InsertLayoutDialog from '../LayoutPlugin/InsertLayoutDialog';
 
-const rootTypeToRootName = {
-  root: 'Root',
-  table: 'Table',
-};
+// const rootTypeToRootName = {
+//   root: 'Root',
+//   table: 'Table',
+// };
 
 function getCodeLanguageOptions(): [string, string][] {
   const options: [string, string][] = [];
@@ -183,11 +185,11 @@ function dropDownActiveClass(active: boolean) {
 function BlockFormatDropDown({
   editor,
   blockType,
-  rootType,
+  // rootType,
   disabled = false,
 }: {
   blockType: keyof typeof blockTypeToBlockName;
-  rootType: keyof typeof rootTypeToRootName;
+  // rootType: keyof typeof rootTypeToRootName;
   editor: LexicalEditor;
   disabled?: boolean;
 }): JSX.Element {
@@ -733,7 +735,7 @@ export default function ToolbarPlugin({
         onClick={() => {
           activeEditor.dispatchCommand(UNDO_COMMAND, undefined);
         }}
-        title={IS_APPLE ? 'Undo (⌘Z)' : 'Undo (Ctrl+Z)'}
+       
         type="button"
         className="toolbar-item spaced"
         aria-label="Undo">
@@ -744,7 +746,7 @@ export default function ToolbarPlugin({
         onClick={() => {
           activeEditor.dispatchCommand(REDO_COMMAND, undefined);
         }}
-        title={IS_APPLE ? 'Redo (⇧⌘Z)' : 'Redo (Ctrl+Y)'}
+        
         type="button"
         className="toolbar-item"
         aria-label="Redo">
@@ -757,7 +759,7 @@ export default function ToolbarPlugin({
             <BlockFormatDropDown
               disabled={!isEditable}
               blockType={toolbarState.blockType}
-              rootType={toolbarState.rootType}
+              // rootType={toolbarState.rootType}
               editor={activeEditor}
             />
             <Divider />
@@ -1015,7 +1017,7 @@ export default function ToolbarPlugin({
                   <i className="icon gif" />
                   <span className="text">GIF</span>
                 </DropDownItem>
-                <DropDownItem
+                {/* <DropDownItem
                   onClick={() => {
                     activeEditor.dispatchCommand(
                       INSERT_EXCALIDRAW_COMMAND,
@@ -1025,7 +1027,7 @@ export default function ToolbarPlugin({
                   className="item">
                   <i className="icon diagram-2" />
                   <span className="text">Excalidraw</span>
-                </DropDownItem>
+                </DropDownItem> */}
                 <DropDownItem
                   onClick={() => {
                     showModal('Insert Table', (onClose) => (
@@ -1066,7 +1068,7 @@ export default function ToolbarPlugin({
                   <span className="text">Columns Layout</span>
                 </DropDownItem>
 
-                <DropDownItem
+                {/* <DropDownItem
                   onClick={() => {
                     showModal('Insert Equation', (onClose) => (
                       <InsertEquationDialog
@@ -1078,7 +1080,7 @@ export default function ToolbarPlugin({
                   className="item">
                   <i className="icon equation" />
                   <span className="text">Equation</span>
-                </DropDownItem>
+                </DropDownItem> */}
                 <DropDownItem
                   onClick={() => {
                     editor.update(() => {
