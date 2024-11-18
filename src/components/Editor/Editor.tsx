@@ -9,6 +9,7 @@ import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { AutoLinkPlugin,LinkMatcher} from '@lexical/react/LexicalAutoLinkPlugin';
 import { AutoLinkNode } from '@lexical/link';
 import { LineBreakNode } from 'lexical';
+import { PageBreakNode } from './nodes/PageBreakNode';
 
 
 
@@ -32,6 +33,8 @@ import ExampleTheme from './ExampleTheme';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
 // import TreeViewPlugin from './plugins/TreeViewPlugin';
 import { parseAllowedColor, parseAllowedFontSize } from './styleConfig';
+import PageBreakPlugin from './plugins/PageBreakPlugin';
+
 
 const placeholder = 'Enter some rich text...';
 
@@ -152,7 +155,7 @@ const editorConfig = {
     import: constructImportMap(),
   },
   namespace: 'React.js Demo',
-  nodes: [ParagraphNode, TextNode, AutoLinkNode,LineBreakNode], // Add AutoLinkNode here
+  nodes: [ParagraphNode, TextNode, AutoLinkNode,LineBreakNode,PageBreakNode], // Add AutoLinkNode here
   onError(error: Error) {
     throw error;
   },
@@ -181,6 +184,7 @@ export default function Editor() {
           <OnChangePlugin onChange={handleChange} />
      
           <AutoLinkPlugin matchers={urlMatchers} />
+         <PageBreakPlugin/>
           {/* <TreeViewPlugin /> */}
         </div>
       </div>

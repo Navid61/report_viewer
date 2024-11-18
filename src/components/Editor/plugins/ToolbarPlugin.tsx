@@ -13,10 +13,12 @@ import {
   REDO_COMMAND,
   SELECTION_CHANGE_COMMAND,
   UNDO_COMMAND,
+ 
   
 } from 'lexical';
 import FontFamilyDropDown from './FontFamilyDropDown';
 import FontSizeDropDown from './FontSizeDropDown';
+import { INSERT_PAGE_BREAK } from './PageBreakPlugin';
 
 const LowPriority = 1;
 
@@ -81,8 +83,11 @@ export default function ToolbarPlugin() {
         },
         LowPriority,
       ),
+      
     );
   }, [editor, $updateToolbar]);
+
+  
 
   return (
     <div className="toolbar" ref={toolbarRef}>
@@ -186,6 +191,14 @@ export default function ToolbarPlugin() {
         <i className="format justify-align" />
       </button>
       <Divider />
+      <button
+         onClick={() => {
+         editor.dispatchCommand(INSERT_PAGE_BREAK, undefined);
+        }}
+        className="item">
+        <i className="icon page-break" />
+        <span className="text">Page Break</span>
+      </button>
 
     </div>
   );
