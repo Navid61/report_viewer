@@ -415,6 +415,44 @@ pre::-webkit-scrollbar-thumb {
   /* Add other styles as needed */
 }
 
+
+/** DropDwon Style */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-button {
+  padding: 8px;
+  cursor: pointer;
+  border: none;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  color: black;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.dropdown-item {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+
 i.undo {
   background-image: url(icons/arrow-counterclockwise.svg);
 }
@@ -458,4 +496,33 @@ i.justify-align {
 i.page-break,
 .icon.page-break {
   background-image: url(images/icons/scissors.svg);
+}
+
+/** Button */
+.Button__root {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border: 0px;
+  background-color: #eee;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.Button__root:hover {
+  background-color: #ddd;
+}
+.Button__small {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 13px;
+}
+.Button__disabled {
+  cursor: not-allowed;
+}
+.Button__disabled:hover {
+  background-color: #eee;
 }
