@@ -12,7 +12,7 @@ import type {NodeKey} from './LexicalNode';
 import type {ElementNode} from './nodes/LexicalElementNode';
 import type {TextFormatType} from './nodes/LexicalTextNode';
 
-import invariant from 'shared/invariant';
+import invariant from '../../../shared/src/invariant';
 
 import {
   $createLineBreakNode,
